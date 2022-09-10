@@ -8,10 +8,14 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Karla&amp;display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="manifest" href="./manifest.json">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
 
     <title>Grocery App</title>
 
@@ -19,8 +23,14 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-            })
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log(`Service Worker registered! Scope: ${registration.scope}`);
+                    })
+                    .catch(err => {
+                        console.log(`Service Worker registration failed: ${err}`);
+                    });
+            });
         }
     </script>
 
@@ -38,7 +48,7 @@
             <div id="createNewListDiv">
                 <form id="itemInput">
                     <label>
-                        <input type="text" id="nameInput" required placeholder="Name of Item">
+                        <input type="text" id="nameInput" name="nameInput" required placeholder="Name of Item">
                     </label>
 
                     <label>
